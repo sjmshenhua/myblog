@@ -54,6 +54,6 @@ app.use('/user',userRouter)
 // app.get('/delete',function(req,res){
 
 // })
-app.listen(8888,function(){
+app.listen(9093,function(){
     console.log('node app start at port 9093')
 })
