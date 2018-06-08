@@ -1,7 +1,16 @@
 import React from 'react'
 import Logo from '../../component/logo'
 import { List, InputItem, WingBlank, Radio, WhiteSpace, Button } from 'antd-mobile';
+import { connect } from 'react-redux';
+import { register } from '../../redux/user.redux'
+import '../../assets/css/register.css'
 
+
+
+@connect(
+    state=>state.user,
+    {register}
+)
 class Register extends React.Component{
     constructor(props){
         super(props)
@@ -20,7 +29,7 @@ class Register extends React.Component{
         })
     }
     handleRegister(){
-        console.log(this.state)
+        this.props.register(this.state)
     }
     render(){
         const RadioItem = Radio.RadioItem
@@ -28,6 +37,7 @@ class Register extends React.Component{
             <div>
                 <Logo></Logo>
                 {/* <h1>注册页</h1> */}
+                {this.props.msg? <p className="error-msg">{this.props.msg}</p>:null}
                 <List>
                     <InputItem
                         onChange={v=>this.handleChange('name',v)}
@@ -40,11 +50,11 @@ class Register extends React.Component{
                         onChange={v=>this.handleChange('repeatpwd',v)}
                     >确认密码</InputItem>
                     <RadioItem 
-                        checked={this.state.type == 'genius'}
+                        checked={this.state.type === 'genius'}
                         onChange={()=>this.handleChange('type','genius')}
                     >牛人</RadioItem>
                     <RadioItem 
-                        checked={this.state.type == 'boss'}
+                        checked={this.state.type === 'boss'}
                         onChange={()=>this.handleChange('type','boss')}
                     >BOSS</RadioItem>
                 </List>
