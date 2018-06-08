@@ -3,6 +3,7 @@ import { getRedirectPath } from '../util'
 
 
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS'; 
 const ERROR_MSG = 'ERROR_MSG';
 const initState = {
     redirectTo: '',
@@ -20,12 +21,36 @@ function errorMsg(msg){
 function registerSuccess(data){
     return { type:REGISTER_SUCCESS, payload:data}
 }
+function loginSuccess(data){
+    return {type: LOGIN_SUCCESS, payload:data}
+}
 
 //reducer
+export function login({name,pwd}){
+    if(!name||!pwd){
+        return errorMsg('用户密码必须输入')
+    }
+
+    return dispatch=>{
+        axios.post('/user/register',{name,pwd})
+        .then(res=>{
+            if(res.status === 200 && res.data.code === 0){
+                dispatch(loginSuccess(res.data.data))
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
+}
+
+
+
 export function user(state=initState,action){
     switch(action.type){
         case REGISTER_SUCCESS:
             return {...state, msg:'',redirectTo: getRedirectPath(action.payload), isAuth:true, ...action.payload}
+        case LOGIN_SUCCESS:
+            return {...state, msg:'',redirectTo: getRedirectPath(action.payload), isAuth:true, ...action.payload}  
         case ERROR_MSG:
         return {...state, msg:action.msg,isAuth:false}
         default:
