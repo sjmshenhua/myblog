@@ -3,7 +3,7 @@ const Router = express.Router();
 const utils = require('utility');
 const model = require('./model');
 const User = model.getModel('user');
-
+const _filter = {'pwd': 0, '_v': 0}
 
 Router.get('/list',function(req,res){
     // User.remove({},function(err,data){})
@@ -14,10 +14,12 @@ Router.get('/list',function(req,res){
 
 Router.post('/login',function(req,res){
     const { name, pwd } = req.body
-    User.findOne({name,pwd:md5Pwd(pwd)},function(err,doc){
+    User.findOne({name,pwd:md5Pwd(pwd)}, _filter, function(err,doc){
         if(!doc){
             return res.json({code: 1, msg: '用户名或者密码错误'})
         }
+        //设置cookie
+        res.cookie('userID',doc._id)
         return res.json({code: 0, data: doc})
     })
 })
@@ -39,7 +41,20 @@ Router.post('/register',function(req, res){
 })
 
 Router.get('/info',(req,res)=>{
-    return res.json({code:0})
+    //获取cookie
+    const { userID } = req.cookies
+    if(!userID){
+        return res.json({code:1})
+    }
+    User.findOne({_id: userID}, _filter, function(err,doc){
+        if(err){
+            return res.json({code:1, msg:'后端出错'})
+        }
+        if(doc){
+            return res.json({code: 0, data: doc})
+        }
+    })
+    
 })
 
 function md5Pwd(pwd){

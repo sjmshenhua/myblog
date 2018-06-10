@@ -4,6 +4,7 @@ import { getRedirectPath } from '../util'
 
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'; 
+const LOAD_DATA = 'LOAD_DATA';
 const ERROR_MSG = 'ERROR_MSG';
 const initState = {
     redirectTo: '',
@@ -32,7 +33,7 @@ export function login({name,pwd}){
     }
 
     return dispatch=>{
-        axios.post('/user/register',{name,pwd})
+        axios.post('/user/login',{name,pwd})
         .then(res=>{
             if(res.status === 200 && res.data.code === 0){
                 dispatch(loginSuccess(res.data.data))
@@ -52,7 +53,9 @@ export function user(state=initState,action){
         case LOGIN_SUCCESS:
             return {...state, msg:'',redirectTo: getRedirectPath(action.payload), isAuth:true, ...action.payload}  
         case ERROR_MSG:
-        return {...state, msg:action.msg,isAuth:false}
+            return {...state, msg:action.msg,isAuth:false}
+        case LOAD_DATA:
+            return {...state, ...action.payload}
         default:
             return state
 
