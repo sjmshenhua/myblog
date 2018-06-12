@@ -3,7 +3,7 @@ const Router = express.Router();
 const utils = require('utility');
 const model = require('./model');
 const User = model.getModel('user');
-const _filter = {'pwd': 0, '_v': 0}
+const _filter = {'pwd': 0, '_v': 0} //查询条件不显示
 
 Router.get('/list',function(req,res){
     // User.remove({},function(err,data){})
@@ -30,12 +30,22 @@ Router.post('/register',function(req, res){
         if(doc){
             return res.json({code: 1, msg: '用户名重复'})
         }
-        User.create({ name, type, pwd: md5Pwd(pwd)},function(err, data){
-            if(err){
-                return res.json({code: 1, msg:'后端出错了'})
+        const userModel = new User({ name, type, pwd: md5Pwd(pwd)},)
+        userModel.save(function(e,d){
+            if(e){
+                return res.json({code: 1,  msg:'后端出错了'})
             }
-            return res.json({code: 0,})
+            const { name, type, _id } = d
+            res.cookie('userID',_id)
+            return res.json({code: 0, data: {name, type, _id}})
         })
+        
+        // User.create(function(err, data){
+        //     if(err){
+        //         return res.json({code: 1, msg:'后端出错了'})
+        //     }
+        //     return res.json({code: 0,})
+        // })
     })
 
 })

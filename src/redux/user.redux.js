@@ -10,7 +10,7 @@ const initState = {
     redirectTo: '',
     isAuth: '',
     nama: '',
-    pwd: '',
+    // pwd: '',
     type: '',
     msg: ''
 }
@@ -24,6 +24,10 @@ function registerSuccess(data){
 }
 function loginSuccess(data){
     return {type: LOGIN_SUCCESS, payload:data}
+}
+
+export function loadData(userifo){
+    return {type: LOAD_DATA, payload: userifo }
 }
 
 //reducer
@@ -43,8 +47,6 @@ export function login({name,pwd}){
         })
     }
 }
-
-
 
 export function user(state=initState,action){
     switch(action.type){
