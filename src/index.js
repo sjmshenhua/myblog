@@ -12,6 +12,7 @@ import 'antd-mobile/dist/antd-mobile.css';          //插件公共样式
 import Login from './container/login/login';
 import Register from './container/register/register'
 import AuthRoute from './container/authRoute/authRoute'
+import BossInfo from './container/bossinfo/bossinfo'
 
 
 const store = createStore(reducers, compose(
@@ -27,7 +28,7 @@ ReactDom.render(
         <BrowserRouter>
             <div>
                 <AuthRoute></AuthRoute>
-                <Route path="/boss" component={Boss}></Route>
+                <Route path="/bossinfo" component={BossInfo}></Route>
                 <Route path="/login" component={Login}></Route>
                 <Route path="/register" component={Register}></Route>
             </div>
