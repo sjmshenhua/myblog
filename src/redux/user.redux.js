@@ -90,7 +90,7 @@ export function user(state=initState,action){
 }
 
 
-function anthSuccess(data){
+function anthSuccess(obj){
     // 排除pwd字段
     const { pwd, ...data } = obj
     return {type: AUTH_SUCCESS, payload: data}

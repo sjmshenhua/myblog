@@ -13,24 +13,41 @@ Router.get('/list',function(req,res){
 })
 
 // 更新
-Router.post('/updata',function(req,res){
-    const userid = req.cookies.userid
-    if(!userid){
-        return json,dumps({code:1})
+Router.post('/update',function(req,res){
+    const userID = req.cookies.userID
+    if(!userID){
+        console.log(1,userID)
+        return res.json.dumps({code:1})
     }
     //获取所有数据
     const body = req.body
     // 查找和更新数据
-    User.findByIdAndUpdate(userid,body,function(err,doc){
+    User.findByIdAndUpdate(userID,body,function(err,doc){
         // 合并数据
         const data = Object.assign({},{
             user: doc.user,
             type: doc.type
         },body)
 
-        return res.json{ code: 0,data}
+        return res.json({ code: 0,data})
     })
 })
+
+Router.post('/update',function(req,res){
+	const userID = req.cookies.userID
+	if (!userID) {
+		return json.dumps({code:1})
+	}
+	const body = req.body
+	User.findByIdAndUpdate(userID,body,function(err,doc){
+		const data = Object.assign({},{
+			user:doc.user,
+			type:doc.type
+		},body)
+		return res.json({code:0,data})
+	})
+})
+
 
 //登录
 Router.post('/login',function(req,res){

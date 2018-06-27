@@ -29,7 +29,7 @@ class GeniusInfo extends React.Component{
         const redirect = this.props.redirectTO
         return(
             <div>
-                {redirect&&redirect!==path ?<Redirect to={this.props.redirectTO}></Redirect>}
+                {redirect&&redirect!==path ?<Redirect to={this.props.redirectTO}></Redirect>: null}
                 <NavBar mode="dark">牛人完善信息页</NavBar>
                 {/* <AvatarSelector selectAvatar={this.selectAvatar}></AvatarSelector> */}
                 <AvatarSelector selectAvatar={(imgname)=>{
