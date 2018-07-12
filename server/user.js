@@ -6,9 +6,10 @@ const User = model.getModel('user');
 const _filter = {'pwd': 0, '_v': 0} //过滤不显示数据
 
 Router.get('/list',function(req,res){
+    const { type } = req.query
     // User.remove({},function(err,data){})
-    User.find({},function(err,data){
-        return res.json(data)
+    User.find({type},function(err,doc){
+        return res.json({code:0, data: doc})
     })
 })
 
