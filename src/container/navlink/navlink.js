@@ -1,12 +1,12 @@
 import React from 'react';
-import propTypes from 'prop-type';
+import PropTypes from 'prop-types';
 import { TabBar } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
 @withRouter
 class NavLinkBar extends React.Component{
     // 传递参数校验
     static propTypes = {
-        data: propTypes.array
+        data: PropTypes.array
     }
     render(){
 

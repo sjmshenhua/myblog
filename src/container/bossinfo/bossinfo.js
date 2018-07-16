@@ -22,7 +22,6 @@ class BossInfo extends React.Component{
         }
     }
     onChange(key,val){
-        console.log(key)
         this.setState({
             [key]: val
         })
