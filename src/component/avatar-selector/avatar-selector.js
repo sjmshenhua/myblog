@@ -22,18 +22,22 @@ class AvatarSelector extends React.Component{
                             icon: require(`../../assets/images/${v}.png`),
                             text: v,
                         }))
-        const gridHeader = this.state.icon?(<div><span></span><img style={{width:20}} src={this.state.icon} alt=""/></div>):
-                        '请选择头像'
+        const gridHeader = this.state.icon
+                                ?(<div>
+                                    <span>已选头像</span>
+                                    <img style={{width:20}} src={this.state.icon} alt=""/>
+                                </div>)
+                                : '请选择头像'
         return(
             <div>
-                <List renderHeader={()=>gridHeader}>
+                <List  className="mar_top" renderHeader={()=>gridHeader}>
                     <Grid 
-                    data={avatarList} 
-                    columnNum={5} 
-                    onClick={elm=>{
-                        this.setState(elm)
-                        this.props.selectAvatar(elm.text)
-                    }}
+                        data={avatarList} 
+                        columnNum={5} 
+                        onClick={elm=>{
+                            this.setState(elm)
+                            this.props.selectAvatar(elm.text)
+                        }}
                     />
                 </List>
             

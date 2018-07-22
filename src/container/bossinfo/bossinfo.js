@@ -22,19 +22,22 @@ class BossInfo extends React.Component{
         }
     }
     onChange(key,val){
-        console.log(key)
         this.setState({
             [key]: val
         })
     }
     render(){
         const path = this.props.location.pathname
-        const redirect = this.props.redirectTO
+        const redirect = this.props.redirectTo
+        console.log(this.props)
         return(
             <div>
+                {/* 跳转页面 */}
                 {redirect&&redirect!==path ?<Redirect to={this.props.redirectTo}></Redirect>:null}
+
                 <NavBar mode="dark">BOSS完善信息页</NavBar>
-                {/* <AvatarSelector selectAvatar={this.selectAvatar}></AvatarSelector> */}
+
+                {/* 头像选择 */}
                 <AvatarSelector selectAvatar={(imgname)=>{
                     this.setState({
                         avatar: imgname

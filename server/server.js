@@ -32,7 +32,7 @@ app.use('/user',userRouter)
 // })
 
 //删除
-// User.remove({age:18},function(err,data){
+// User.remove({},function(err,data){
 //     console.log(data)
 // })
 

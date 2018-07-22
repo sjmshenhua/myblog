@@ -9,16 +9,31 @@ const LOAD_DATA = 'LOAD_DATA';
 const ERROR_MSG = 'ERROR_MSG';
 const initState = {
     redirectTo: '',
-    isAuth: '',
+    // isAuth: '',
     nama: '',
     // pwd: '',
     type: '',
     msg: ''
 }
 
+//reducer
+export function user(state=initState,action){
+    switch(action.type){
+        case AUTH_SUCCESS:
+            return {...state, msg:'',redirectTo: getRedirectPath(action.payload), ...action.payload}
+        case LOAD_DATA:
+            return {...state, ...action.payload}
+        case ERROR_MSG:
+            return {...state, msg:action.msg}
+        default:
+            return state
 
+    }
+}
 
+// 完善信息保存
 export function update(data){
+    console.log(data)
     return dispatch=>{
         axios.post('/user/update',data)
         .then((res)=>{
@@ -70,25 +85,14 @@ export function register({ name, pwd, repeatpwd, type }){
     
 }
 
-//reducer
-export function user(state=initState,action){
-    switch(action.type){
-        case AUTH_SUCCESS:
-            return {...state, msg:'',redirectTo: getRedirectPath(action.payload), ...action.payload}
-        // case REGISTER_SUCCESS:
-        //     return {...state, msg:'',redirectTo: getRedirectPath(action.payload), isAuth:true, ...action.payload}
-        // case LOGIN_SUCCESS:
-        //     return {...state, msg:'',redirectTo: getRedirectPath(action.payload), isAuth:true, ...action.payload}  
-        case ERROR_MSG:
-            return {...state, msg:action.msg,isAuth:false}
-        case LOAD_DATA:
-            return {...state, ...action.payload}
-        default:
-            return state
 
-    }
-}
 
+// function registerSuccess(data){
+//     return { type:REGISTER_SUCCESS, payload:data}
+// }
+// function loginSuccess(data){
+//     return {type: LOGIN_SUCCESS, payload:data}
+// }
 
 function anthSuccess(obj){
     // 排除pwd字段
@@ -100,12 +104,7 @@ function errorMsg(msg){
     return {type: ERROR_MSG, msg: msg}
 }
 
-// function registerSuccess(data){
-//     return { type:REGISTER_SUCCESS, payload:data}
-// }
-// function loginSuccess(data){
-//     return {type: LOGIN_SUCCESS, payload:data}
-// }
+
 
 export function loadData(userifo){
     return {type: LOAD_DATA, payload: userifo }
