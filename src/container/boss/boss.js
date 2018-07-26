@@ -12,7 +12,6 @@ class Boss extends React.Component{
     componentDidMount(){
         axios.get('/user/list?type=genius')
         .then(res=>{
-            console.log(res.data)
             if(res.data.code === 0){
                 this.setState({data: res.data.data})
             }
@@ -21,7 +20,6 @@ class Boss extends React.Component{
     render(){
         const Header = Card.Header
         const Body = Card.Body
-        console.log(this.state.data)
         return(
             <WingBlank>
                 <WhiteSpace></WhiteSpace>

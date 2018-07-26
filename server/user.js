@@ -14,7 +14,6 @@ Router.get('/list',function(req,res){
     const { type } = req.query
     // User.remove({},function(err,data){})
     User.find({type},function(err,doc){
-        console.log(doc)
         return res.json({code:0, data: doc})
     })
 })
@@ -23,7 +22,6 @@ Router.get('/list',function(req,res){
 Router.post('/update',function(req,res){
     const userID = req.cookies.userID
     if(!userID){
-        console.log(1,userID)
         return res.json.dumps({code:1})
     }
     //获取所有数据

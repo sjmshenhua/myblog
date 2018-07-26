@@ -25,7 +25,6 @@ class AuthRoute extends React.Component{
                 }
             }else{
               
-                console.log(res.data)
             }
             
         })

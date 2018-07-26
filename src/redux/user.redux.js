@@ -33,7 +33,6 @@ export function user(state=initState,action){
 
 // 完善信息保存
 export function update(data){
-    console.log(data)
     return dispatch=>{
         axios.post('/user/update',data)
         .then((res)=>{

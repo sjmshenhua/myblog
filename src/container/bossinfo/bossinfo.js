@@ -29,7 +29,6 @@ class BossInfo extends React.Component{
     render(){
         const path = this.props.location.pathname
         const redirect = this.props.redirectTo
-        console.log(this.props)
         return(
             <div>
                 {/* 跳转页面 */}
