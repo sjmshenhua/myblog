@@ -32,6 +32,10 @@
     text-align: right;
 }
 .stick-footer{
+    width: 100%;
     z-index: 10;
+    position: fixed;
+    bottom: 0;
+
 }
 .am-card{z-index: 10;}
