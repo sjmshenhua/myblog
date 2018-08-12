@@ -4,29 +4,46 @@ import { Redirect } from "react-router-dom";
 import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
 import { login }  from '../../redux/user.redux';
 import { connect } from 'react-redux';
+import imoocFrom from '../../component/imooc-form/imooc-form'
+// class Hello extends React.Component{
+//     render(){
+//         return<h2>这是一个组件</h2>
+//     }
+// }
+
+// function webHello(Cmp){
+//     class webCmp extends React.Component{
+//         render(){
+//             return (
+//                 <div>
+//                     <p>这是一个子组件</p>
+//                     <Cmp {...this.props}></Cmp>
+
+//                 </div>
+//             )
+//         }
+//     }
+//     return webCmp
+// }
+
+// Hello = webHello(Hello)
 
 @connect(
     state=>state.user,
     {login}
 )
+@imoocFrom
 class Login extends React.Component{
     constructor(props){
         super(props)
-        this.state = {
-            name: '',
-            pwd: ''
-        }
+        // console.log(this.props)
         this.register = this.register.bind(this)
         this.handleLogin = this.handleLogin.bind(this)
     }
-    handleChange(key,val){
-        this.setState({
-            [key]: val
-        })
-    }
 
     handleLogin(){
-        this.props.login(this.state)
+        
+        this.props.login(this.props.state)
     }
 
     register(){
@@ -35,17 +52,17 @@ class Login extends React.Component{
     render(){
         return(
             <div>
-                {this.props.redirectTo?<Redirect to={this.props.redirectTo} /> : null}
+                {this.props.redirectTo&&this.props.redirectTo!=='/login'?<Redirect to={this.props.redirectTo} /> : null}
                 <Logo></Logo>
                 {/* <h1>登录页</h1> */}
                 <WingBlank>
                     <List>
                         <InputItem
-                            onChange={v=>this.handleChange('name',v)}
+                            onChange={v=>this.props.handleChange('name',v)}
                         >用户</InputItem>
                         <WhiteSpace />
                         <InputItem type="password"
-                            onChange={v=>this.handleChange('pwd',v)}
+                            onChange={v=>this.props.handleChange('pwd',v)}
                         >密码</InputItem>
                     </List>
                     <WhiteSpace />
