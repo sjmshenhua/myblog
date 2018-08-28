@@ -7,17 +7,23 @@ mongoose.connect(DB_URL)
 
 const models = {
     user: {
-        'name': {type: String, 'require': true},             //用户名
-        'pwd': {type: String, 'require': true},              //密码
-        'type': {type: String, 'require': true},             //
-        'avatar': {type: String,},           //头像
-        'desc': {type: String,},             //个人简介或者职位简介
-        'title': {type: String,},            //职位
+        'name': { 'type': String, 'require': true},             //用户名
+        'pwd': { 'type': String, 'require': true},              //密码
+        'type': { 'type': String, 'require': true},             //
+        'avatar': { 'type': String,},           //头像
+        'desc': { 'type': String,},             //个人简介或者职位简介
+        'title': { 'type': String,},            //职位
 
-        'company': {type: String,},          //公司名称
-        'money': {type: String,}             //钱
+        'company': { 'type': String,},          //公司名称
+        'money': { 'type': String,}             //钱
     },
-    chat: {
+    chat: { //聊天信息数据模块
+        'chatid': { 'type': String, 'require': true },                               //信息唯一标识
+        'from': { 'type': String, 'require': true },                                 //谁发的
+        'to': { 'type': String, 'require': true },                                   //发给谁
+        'read': { 'type': Boolean, 'default': false },                               //是否已读
+        'content': { 'type': String, 'require': true, 'default': '' },               //信息文本
+        'create_time': { 'type': Number, 'default': new Date().getTime() },          //信息创建时间
 
     }
 }

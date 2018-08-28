@@ -3,6 +3,7 @@ const Router = express.Router();
 const utils = require('utility');
 const model = require('./model');
 const User = model.getModel('user');
+const Chat = model.getModel('chat')
 const _filter = {'pwd': 0, '_v': 0} //过滤不显示数据
 
 // User.remove({},function(err,data){
@@ -17,6 +18,19 @@ Router.get('/list',function(req,res){
         return res.json({code:0, data: doc})
     })
 })
+
+// 请求消息列表
+Router.get('/getmsglist',function(req,res){
+    // 先获取用户信息
+    const user = req.cookies.user
+    // {'$or':[{from: user,to: user}]} 当前登录用户消息发送
+    Chat.find({},function(err,doc){
+        if(!err){
+            return res.json({code: 0, msgs: doc})
+        }
+    })
+})
+
 
 // 更新
 Router.post('/update',function(req,res){
